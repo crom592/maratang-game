@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../styles/Game.css';
 import GameScene from './GameScene';
 import CookingAnimation from './CookingAnimation';
+import StreamView from './StreamView';
 import { Ingredient, GameState } from '../types';
 import { ingredients } from '../data/ingredients';
 
@@ -19,6 +20,21 @@ const Game: React.FC = () => {
 
   const [isEating, setIsEating] = useState(false);
   const [isCooking, setIsCooking] = useState(false);
+
+  const calculateSpicyLevel = () => {
+    return gameState.selectedIngredients.reduce((total, ingredient) => 
+      total + ingredient.spicyLevel, 0);
+  };
+
+  const handleDonation = (amount: number) => {
+    setGameState(prev => ({
+      ...prev,
+      character: {
+        ...prev.character,
+        money: prev.character.money + amount
+      }
+    }));
+  };
 
   const handleIngredientSelect = (ingredientId: string) => {
     const selectedIngredient = ingredients.find(i => i.id === ingredientId);
@@ -41,7 +57,8 @@ const Game: React.FC = () => {
       ...prev,
       character: {
         ...prev.character,
-        money: prev.character.money + (prev.selectedIngredients.length * 100)
+        money: prev.character.money + (prev.selectedIngredients.length * 100),
+        spicyTolerance: prev.character.spicyTolerance + 0.1
       },
       selectedIngredients: []
     }));
@@ -56,6 +73,7 @@ const Game: React.FC = () => {
       <div className="game-header">
         <div className="money-display">💰 {gameState.character.money}</div>
         <div className="level-display">Level {gameState.character.level}</div>
+        <div className="spicy-tolerance">🌶️ {gameState.character.spicyTolerance.toFixed(1)}</div>
       </div>
       
       <div className="game-content">
@@ -71,6 +89,14 @@ const Game: React.FC = () => {
             isActive={isCooking}
             onCookingComplete={handleCookingComplete}
             ingredients={gameState.selectedIngredients.map(i => i.id)}
+          />
+        )}
+
+        {isEating && (
+          <StreamView 
+            isStreaming={isEating}
+            spicyLevel={calculateSpicyLevel()}
+            onDonation={handleDonation}
           />
         )}
         
@@ -99,7 +125,10 @@ const Game: React.FC = () => {
                   className="ingredient-item"
                   onClick={() => handleIngredientSelect(ingredient.id)}
                 >
-                  {ingredient.name}
+                  <div className="ingredient-name">{ingredient.name}</div>
+                  <div className="ingredient-spicy">
+                    {'🌶️'.repeat(ingredient.spicyLevel)}
+                  </div>
                 </div>
               ))}
             </div>

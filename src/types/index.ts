@@ -3,9 +3,9 @@ export interface Ingredient {
   name: string;
   price: number;
   spicyLevel: number;
-  image: string;
-  category: 'meat' | 'vegetable' | 'seafood' | 'noodle' | 'tofu' | 'mushroom';
-  description: string;
+  category: 'meat' | 'vegetable' | 'seafood' | 'noodle' | 'tofu' | 'mushroom' | 'seasoning' | 'special';
+  image?: string;
+  description?: string;
 }
 
 export interface Character {

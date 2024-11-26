@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/Character.css';
 
 interface CharacterProps {
@@ -9,23 +9,29 @@ interface CharacterProps {
 const Character: React.FC<CharacterProps> = ({ isEating, onEatingComplete }) => {
   const [currentFrame, setCurrentFrame] = useState(0);
   
+  const completeEating = useCallback(() => {
+    if (onEatingComplete) {
+      onEatingComplete();
+    }
+  }, [onEatingComplete]);
+
   useEffect(() => {
     if (isEating) {
       const animationInterval = setInterval(() => {
         setCurrentFrame((prev) => {
-          const nextFrame = (prev + 1) % 4; // 4 frames of animation
-          if (nextFrame === 0 && onEatingComplete) {
-            onEatingComplete();
+          const nextFrame = (prev + 1) % 4;
+          if (nextFrame === 0) {
+            completeEating();
           }
           return nextFrame;
         });
-      }, 500); // Change frame every 500ms
+      }, 500);
 
       return () => clearInterval(animationInterval);
     } else {
       setCurrentFrame(0);
     }
-  }, [isEating, onEatingComplete]);
+  }, [isEating, completeEating]);
 
   return (
     <div className="character">

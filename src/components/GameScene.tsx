@@ -20,8 +20,8 @@ const GameScene: React.FC<GameSceneProps> = ({
       <div className="bowl-container">
         <div className="maratang-bowl">
           <div className="soup">
-            {selectedIngredients.map((id) => (
-              <div key={id} className={`ingredient ingredient-${id}`} />
+            {selectedIngredients.map((id, index) => (
+              <div key={`${id}-${index}`} className={`ingredient ingredient-${id}`} />
             ))}
           </div>
         </div>

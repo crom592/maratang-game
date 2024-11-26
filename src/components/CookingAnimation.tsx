@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/CookingAnimation.css';
 
 interface CookingAnimationProps {
@@ -15,26 +15,25 @@ const CookingAnimation: React.FC<CookingAnimationProps> = ({
   const [bubbles, setBubbles] = useState<number[]>([]);
   const [cookingStage, setCookingStage] = useState(0);
 
+  const completeCooking = useCallback(() => {
+    onCookingComplete();
+  }, [onCookingComplete]);
+
   useEffect(() => {
     if (isActive) {
-      // 버블 애니메이션 생성
-      const interval = setInterval(() => {
+      const bubbleInterval = setInterval(() => {
         setBubbles(prev => {
           const newBubbles = [...prev, Math.random()];
-          if (newBubbles.length > 10) {
-            return newBubbles.slice(1);
-          }
-          return newBubbles;
+          return newBubbles.slice(-10);
         });
       }, 500);
 
-      // 요리 단계 진행
       const cookingInterval = setInterval(() => {
         setCookingStage(prev => {
           if (prev >= 3) {
-            clearInterval(interval);
+            clearInterval(bubbleInterval);
             clearInterval(cookingInterval);
-            onCookingComplete();
+            completeCooking();
             return 0;
           }
           return prev + 1;
@@ -42,14 +41,14 @@ const CookingAnimation: React.FC<CookingAnimationProps> = ({
       }, 2000);
 
       return () => {
-        clearInterval(interval);
+        clearInterval(bubbleInterval);
         clearInterval(cookingInterval);
       };
     } else {
       setBubbles([]);
       setCookingStage(0);
     }
-  }, [isActive, onCookingComplete]);
+  }, [isActive, completeCooking]);
 
   return (
     <div className={`cooking-animation ${isActive ? 'active' : ''}`}>

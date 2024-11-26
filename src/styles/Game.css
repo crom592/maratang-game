@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Arial', sans-serif;
+  position: relative;
 }
 
 .game-header {
@@ -15,16 +16,26 @@
   align-items: center;
 }
 
-.money-display {
+.money-display, .level-display, .spicy-tolerance {
   font-size: 24px;
   font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.money-display {
   color: #28a745;
+  background-color: #e9f7ef;
 }
 
 .level-display {
-  font-size: 24px;
-  font-weight: bold;
   color: #007bff;
+  background-color: #e7f1ff;
+}
+
+.spicy-tolerance {
+  color: #dc3545;
+  background-color: #fce7e9;
 }
 
 .main-menu {
@@ -40,7 +51,7 @@
 .ingredients-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 10px;
+  gap: 15px;
   padding: 20px;
 }
 
@@ -48,31 +59,46 @@
   background-color: #fff;
   border: 2px solid #ddd;
   border-radius: 8px;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .ingredient-item:hover {
   border-color: #007bff;
   transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ingredient-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.ingredient-spicy {
+  color: #dc3545;
+  font-size: 14px;
 }
 
 button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 button:hover {
   background-color: #0056b3;
+  transform: translateY(-1px);
 }
 
 button:disabled {
@@ -85,4 +111,9 @@ button:disabled {
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
+}
+
+.cooking-scene h2 {
+  color: #e83e8c;
+  margin-bottom: 20px;
 }

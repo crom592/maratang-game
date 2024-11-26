@@ -54,5 +54,32 @@ export const ingredients: Ingredient[] = [
     image: '/assets/ingredients/shrimp.png',
     category: 'seafood',
     description: '신선한 새우'
+  },
+  {
+    id: 'chili_oil',
+    name: '마라소스',
+    price: 500,
+    spicyLevel: 1,
+    image: '/assets/ingredients/chili_oil.png',
+    category: 'seasoning',
+    description: '기본 마라소스'
+  },
+  {
+    id: 'sichuan_pepper',
+    name: '화자오',
+    price: 800,
+    spicyLevel: 2,
+    image: '/assets/ingredients/sichuan_pepper.png',
+    category: 'seasoning',
+    description: '마비감이 있는 화자오'
+  },
+  {
+    id: 'dried_chili',
+    name: '건고추',
+    price: 600,
+    spicyLevel: 3,
+    image: '/assets/ingredients/dried_chili.png',
+    category: 'seasoning',
+    description: '매운 건고추'
   }
 ];
