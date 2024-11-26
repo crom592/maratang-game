@@ -3,6 +3,7 @@ import '../styles/Game.css';
 import GameScene from './GameScene';
 import CookingAnimation from './CookingAnimation';
 import StreamView from './StreamView';
+import Shop from './Shop';
 import { Ingredient, GameState } from '../types';
 import { ingredients } from '../data/ingredients';
 
@@ -20,6 +21,7 @@ const Game: React.FC = () => {
 
   const [isEating, setIsEating] = useState(false);
   const [isCooking, setIsCooking] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
 
   const calculateSpicyLevel = () => {
     return gameState.selectedIngredients.reduce((total, ingredient) => 
@@ -64,8 +66,25 @@ const Game: React.FC = () => {
     }));
   };
 
+  const handlePurchase = (ingredient: Ingredient) => {
+    if (gameState.character.money >= ingredient.price) {
+      setGameState(prev => ({
+        ...prev,
+        character: {
+          ...prev.character,
+          money: prev.character.money - ingredient.price,
+          inventory: [...prev.character.inventory, ingredient]
+        }
+      }));
+    }
+  };
+
   const startCooking = () => {
     setIsCooking(true);
+  };
+
+  const toggleShop = () => {
+    setIsShopOpen(prev => !prev);
   };
 
   return (
@@ -74,10 +93,20 @@ const Game: React.FC = () => {
         <div className="money-display">💰 {gameState.character.money}</div>
         <div className="level-display">Level {gameState.character.level}</div>
         <div className="spicy-tolerance">🌶️ {gameState.character.spicyTolerance.toFixed(1)}</div>
+        <button className="shop-button" onClick={toggleShop}>
+          {isShopOpen ? '상점 닫기' : '상점 열기'}
+        </button>
       </div>
       
       <div className="game-content">
-        {!isCooking ? (
+        {isShopOpen ? (
+          <Shop 
+            money={gameState.character.money}
+            inventory={gameState.character.inventory}
+            onPurchase={handlePurchase}
+            onClose={toggleShop}
+          />
+        ) : !isCooking ? (
           <GameScene 
             selectedIngredients={gameState.selectedIngredients.map(i => i.id)}
             onIngredientClick={handleIngredientSelect}

@@ -1,8 +1,11 @@
 .shop {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .shop-header {
@@ -10,25 +13,40 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
 }
 
 .shop-header h2 {
   margin: 0;
   color: #333;
+  font-size: 24px;
 }
 
-.money {
-  font-size: 1.2em;
+.shop-money {
+  font-size: 20px;
   font-weight: bold;
   color: #e6b800;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  padding: 5px 10px;
+}
+
+.close-button:hover {
+  color: #333;
 }
 
 .category-tabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  overflow-x: auto;
-  padding-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .category-tab {
@@ -37,8 +55,7 @@
   border-radius: 20px;
   background-color: #f0f0f0;
   cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
+  transition: all 0.3s ease;
 }
 
 .category-tab:hover {
@@ -50,69 +67,91 @@
   color: white;
 }
 
-.shop-items {
+.ingredients-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
-.shop-item {
-  border: 1px solid #eee;
+.ingredient-card {
+  background-color: white;
   border-radius: 8px;
   padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s;
+  gap: 10px;
 }
 
-.shop-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.item-image {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
-}
-
-.item-image img {
+.ingredient-image {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f8;
+  border-radius: 4px;
 }
 
-.item-info {
-  text-align: center;
-  margin-bottom: 10px;
+.placeholder-image {
+  font-size: 48px;
 }
 
-.item-info h3 {
-  margin: 0 0 5px 0;
+.ingredient-info {
+  flex: 1;
+}
+
+.ingredient-info h3 {
+  margin: 0 0 10px 0;
   color: #333;
 }
 
-.item-info p {
+.spicy-level {
+  color: #ff4d4d;
   margin: 5px 0;
-  color: #666;
 }
 
-.purchase-btn {
-  padding: 8px 16px;
+.price {
+  color: #e6b800;
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.purchase-button {
+  width: 100%;
+  padding: 8px;
   border: none;
-  border-radius: 20px;
+  border-radius: 4px;
   background-color: #4CAF50;
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
 }
 
-.purchase-btn:hover:not(:disabled) {
+.purchase-button:hover:not(:disabled) {
   background-color: #45a049;
 }
 
-.purchase-btn:disabled {
-  background-color: #cccccc;
+.purchase-button.owned {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.purchase-button.cant-afford {
+  background-color: #ff4d4d;
+  cursor: not-allowed;
+}
+
+.purchase-button:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
 }
