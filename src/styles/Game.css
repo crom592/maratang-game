@@ -10,12 +10,21 @@
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .money-display {
   font-size: 24px;
   font-weight: bold;
   color: #28a745;
+}
+
+.level-display {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
 }
 
 .main-menu {
@@ -26,6 +35,28 @@
 .main-menu h1 {
   color: #e83e8c;
   margin-bottom: 30px;
+}
+
+.ingredients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  padding: 20px;
+}
+
+.ingredient-item {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ingredient-item:hover {
+  border-color: #007bff;
+  transform: translateY(-2px);
 }
 
 button {

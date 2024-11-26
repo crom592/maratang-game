@@ -1,0 +1,85 @@
+.game-scene {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bowl-container {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.maratang-bowl {
+  width: 300px;
+  height: 150px;
+  background: #ffffff;
+  border-radius: 150px 150px 0 0;
+  position: relative;
+  border: 8px solid #d4d4d4;
+  border-bottom: none;
+  overflow: hidden;
+}
+
+.soup {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: linear-gradient(to bottom, #ff6b6b, #cc5555);
+  border-radius: 50% 50% 0 0;
+}
+
+.character-container {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.character {
+  width: 100px;
+  height: 150px;
+  background-color: #ffd700;
+  border-radius: 50px 50px 0 0;
+  position: relative;
+}
+
+.ingredient {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 각 재료별 스타일 */
+.ingredient-beef {
+  background-color: #8b4513;
+}
+
+.ingredient-pork {
+  background-color: #ffa07a;
+}
+
+.ingredient-tofu {
+  background-color: #fffaf0;
+}
+
+.ingredient-mushroom {
+  background-color: #deb887;
+}
+
+.ingredient-noodle {
+  background-color: #f5deb3;
+}
+
+.ingredient-shrimp {
+  background-color: #ff6b6b;
+}

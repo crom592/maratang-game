@@ -1,0 +1,81 @@
+.character {
+  width: 100px;
+  height: 150px;
+  position: relative;
+}
+
+.character-face {
+  width: 80px;
+  height: 80px;
+  background-color: #ffd700;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+.eyes {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  top: 30px;
+}
+
+.eyes::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  left: 30px;
+}
+
+.mouth {
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background-color: #000;
+  border-radius: 0 0 10px 10px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+}
+
+/* Animation frames */
+.frame-0 .mouth {
+  transform: translateX(-50%) scaleY(1);
+}
+
+.frame-1 .mouth {
+  transform: translateX(-50%) scaleY(2);
+}
+
+.frame-2 .mouth {
+  transform: translateX(-50%) scaleY(1.5);
+}
+
+.frame-3 .mouth {
+  transform: translateX(-50%) scaleY(1);
+}
+
+.eating .character-face {
+  animation: eat 0.5s infinite;
+}
+
+@keyframes eat {
+  0% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(5px);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
