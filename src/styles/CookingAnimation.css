@@ -1,0 +1,145 @@
+.cooking-animation {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pot {
+  width: 200px;
+  height: 150px;
+  background: #444;
+  border-radius: 100px 100px 20px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.soup-base {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background: linear-gradient(to bottom, #ff6b6b, #cc5555);
+  border-radius: 50% 50% 0 0;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: bubble 2s ease-in infinite;
+}
+
+@keyframes bubble {
+  0% {
+    bottom: 0;
+    opacity: 0.5;
+  }
+  100% {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+.steam-container {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 30px;
+}
+
+.steam {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: steam 2s ease-out infinite;
+}
+
+.steam-1 { left: 0; animation-delay: 0.2s; }
+.steam-2 { left: 20px; animation-delay: 0.4s; }
+.steam-3 { left: 40px; animation-delay: 0.6s; }
+
+@keyframes steam {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-30px) scale(2);
+    opacity: 0;
+  }
+}
+
+.ingredient {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: all 0.5s ease;
+}
+
+.ingredient.cooking {
+  animation: cooking 4s ease infinite;
+}
+
+@keyframes cooking {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(180deg);
+  }
+  100% {
+    transform: translateY(0) rotate(360deg);
+  }
+}
+
+.cooking-status {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+/* 재료별 스타일 */
+.ingredient-beef {
+  background-color: #8b4513;
+  border-radius: 4px;
+}
+
+.ingredient-pork {
+  background-color: #ffa07a;
+  border-radius: 4px;
+}
+
+.ingredient-tofu {
+  background-color: #fffaf0;
+  border-radius: 2px;
+}
+
+.ingredient-mushroom {
+  background-color: #deb887;
+  border-radius: 50%;
+}
+
+.ingredient-noodle {
+  background-color: #f5deb3;
+  height: 15px;
+  border-radius: 10px;
+}
+
+.ingredient-shrimp {
+  background-color: #ff6b6b;
+  border-radius: 40% 40% 10% 10%;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Game.css';
 import GameScene from './GameScene';
+import CookingAnimation from './CookingAnimation';
 import { Ingredient, GameState } from '../types';
 import { ingredients } from '../data/ingredients';
 
@@ -17,6 +18,7 @@ const Game: React.FC = () => {
   });
 
   const [isEating, setIsEating] = useState(false);
+  const [isCooking, setIsCooking] = useState(false);
 
   const handleIngredientSelect = (ingredientId: string) => {
     const selectedIngredient = ingredients.find(i => i.id === ingredientId);
@@ -26,6 +28,11 @@ const Game: React.FC = () => {
         selectedIngredients: [...prev.selectedIngredients, selectedIngredient]
       }));
     }
+  };
+
+  const handleCookingComplete = () => {
+    setIsCooking(false);
+    setGameState(prev => ({ ...prev, currentScene: 'main' }));
   };
 
   const handleEatingComplete = () => {
@@ -40,6 +47,10 @@ const Game: React.FC = () => {
     }));
   };
 
+  const startCooking = () => {
+    setIsCooking(true);
+  };
+
   return (
     <div className="game-container">
       <div className="game-header">
@@ -48,12 +59,20 @@ const Game: React.FC = () => {
       </div>
       
       <div className="game-content">
-        <GameScene 
-          selectedIngredients={gameState.selectedIngredients.map(i => i.id)}
-          onIngredientClick={handleIngredientSelect}
-          isEating={isEating}
-          onEatingComplete={handleEatingComplete}
-        />
+        {!isCooking ? (
+          <GameScene 
+            selectedIngredients={gameState.selectedIngredients.map(i => i.id)}
+            onIngredientClick={handleIngredientSelect}
+            isEating={isEating}
+            onEatingComplete={handleEatingComplete}
+          />
+        ) : (
+          <CookingAnimation 
+            isActive={isCooking}
+            onCookingComplete={handleCookingComplete}
+            ingredients={gameState.selectedIngredients.map(i => i.id)}
+          />
+        )}
         
         {gameState.currentScene === 'main' && (
           <div className="main-menu">
@@ -64,7 +83,7 @@ const Game: React.FC = () => {
             <button onClick={() => setGameState(prev => ({ ...prev, currentScene: 'shop' }))}>
               상점
             </button>
-            {gameState.selectedIngredients.length > 0 && (
+            {gameState.selectedIngredients.length > 0 && !isCooking && (
               <button onClick={() => setIsEating(true)}>먹방 시작!</button>
             )}
           </div>
@@ -84,6 +103,9 @@ const Game: React.FC = () => {
                 </div>
               ))}
             </div>
+            {gameState.selectedIngredients.length > 0 && !isCooking && (
+              <button onClick={startCooking}>요리 시작!</button>
+            )}
             <button onClick={() => setGameState(prev => ({ ...prev, currentScene: 'main' }))}>
               메인으로 돌아가기
             </button>
