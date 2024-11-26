@@ -16,10 +16,27 @@ const Game: React.FC = () => {
     selectedIngredients: []
   });
 
+  const [isEating, setIsEating] = useState(false);
+
   const handleIngredientSelect = (ingredientId: string) => {
+    const selectedIngredient = ingredients.find(i => i.id === ingredientId);
+    if (selectedIngredient) {
+      setGameState(prev => ({
+        ...prev,
+        selectedIngredients: [...prev.selectedIngredients, selectedIngredient]
+      }));
+    }
+  };
+
+  const handleEatingComplete = () => {
+    setIsEating(false);
     setGameState(prev => ({
       ...prev,
-      selectedIngredients: [...prev.selectedIngredients, ingredientId]
+      character: {
+        ...prev.character,
+        money: prev.character.money + (prev.selectedIngredients.length * 100)
+      },
+      selectedIngredients: []
     }));
   };
 
@@ -32,8 +49,10 @@ const Game: React.FC = () => {
       
       <div className="game-content">
         <GameScene 
-          selectedIngredients={gameState.selectedIngredients}
+          selectedIngredients={gameState.selectedIngredients.map(i => i.id)}
           onIngredientClick={handleIngredientSelect}
+          isEating={isEating}
+          onEatingComplete={handleEatingComplete}
         />
         
         {gameState.currentScene === 'main' && (
@@ -45,6 +64,9 @@ const Game: React.FC = () => {
             <button onClick={() => setGameState(prev => ({ ...prev, currentScene: 'shop' }))}>
               상점
             </button>
+            {gameState.selectedIngredients.length > 0 && (
+              <button onClick={() => setIsEating(true)}>먹방 시작!</button>
+            )}
           </div>
         )}
         
