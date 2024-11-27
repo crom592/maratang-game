@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import '../styles/Character.css';
+import avatarImage from '../assets/images/avatar.jpeg';
+import eatingSound from '../assets/sounds/eating.mp3';  
 
 interface CharacterProps {
   isEating: boolean;
@@ -9,8 +11,9 @@ interface CharacterProps {
 const Character: React.FC<CharacterProps> = ({ isEating, onEatingComplete }) => {
   const [currentFrame, setCurrentFrame] = useState(0);
   const [cycleCount, setCycleCount] = useState(0);
-  const TOTAL_CYCLES = 5; // 전체 사이클 수 (5번 반복)
-  
+  const TOTAL_CYCLES = 5; 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   const completeEating = useCallback(() => {
     if (onEatingComplete) {
       onEatingComplete();
@@ -19,6 +22,12 @@ const Character: React.FC<CharacterProps> = ({ isEating, onEatingComplete }) => 
 
   useEffect(() => {
     if (isEating) {
+      // 먹기 시작할 때 소리 재생
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(error => console.log('Audio playback failed:', error));
+      }
+
       const animationInterval = setInterval(() => {
         setCurrentFrame((prev) => {
           const nextFrame = (prev + 1) % 4;
@@ -33,7 +42,7 @@ const Character: React.FC<CharacterProps> = ({ isEating, onEatingComplete }) => 
           }
           return nextFrame;
         });
-      }, 300); // 프레임 속도를 300ms로 변경
+      }, 300); 
 
       return () => {
         clearInterval(animationInterval);
@@ -47,9 +56,9 @@ const Character: React.FC<CharacterProps> = ({ isEating, onEatingComplete }) => 
 
   return (
     <div className="character">
-      <div className={`character-face frame-${currentFrame} ${isEating ? 'eating' : ''}`}>
-        <div className="eyes" />
-        <div className="mouth" />
+      <audio ref={audioRef} src={eatingSound} preload="auto" />
+      <div className={`character-avatar ${isEating ? 'eating' : ''} frame-${currentFrame}`}>
+        <img src={avatarImage} alt="Character Avatar" />
       </div>
     </div>
   );

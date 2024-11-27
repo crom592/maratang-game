@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/GameScene.css';
 import Character from './Character';
+import maratangImage from '../assets/images/maratang.jpeg';
 
 interface GameSceneProps {
   onIngredientClick?: (id: string) => void;
@@ -19,6 +20,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     <div className="game-scene">
       <div className="bowl-container">
         <div className="maratang-bowl">
+          <img src={maratangImage} alt="Maratang Bowl" className="bowl-image" />
           <div className="soup">
             {selectedIngredients.map((id, index) => (
               <div key={`${id}-${index}`} className={`ingredient ingredient-${id}`} />

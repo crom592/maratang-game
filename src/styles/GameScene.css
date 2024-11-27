@@ -1,62 +1,75 @@
 .game-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
   position: relative;
-  width: 100%;
-  height: 500px;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  overflow: hidden;
 }
 
 .bowl-container {
-  position: absolute;
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  width: 400px;
+  height: 300px;
+  margin-bottom: 40px;
 }
 
 .maratang-bowl {
-  width: 300px;
-  height: 150px;
-  background: #ffffff;
-  border-radius: 150px 150px 0 0;
   position: relative;
-  border: 8px solid #d4d4d4;
-  border-bottom: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   overflow: hidden;
+}
+
+.bowl-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .soup {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 80%;
-  background: linear-gradient(to bottom, #ff6b6b, #cc5555);
-  border-radius: 50% 50% 0 0;
-}
-
-.character-container {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.character {
-  width: 100px;
-  height: 150px;
-  background-color: #ffd700;
-  border-radius: 50px 50px 0 0;
-  position: relative;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
 }
 
 .ingredient {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  animation: float 3s infinite ease-in-out;
+}
+
+.character-container {
+  position: relative;
+  margin-top: 20px;
+  z-index: 10;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 /* 각 재료별 스타일 */
